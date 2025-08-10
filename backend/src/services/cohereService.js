@@ -1,17 +1,21 @@
-const axios = require('axios');
-const { COHERE_API_URL, COHERE_MODEL, COHERE_TEMPERATURE, RESPONSE_FORMAT, SYSTEM_PROMPT } = require('../config/cohereConstants.js');
+import axios from 'axios';
+import {
+  COHERE_API_URL,
+  COHERE_MODEL,
+  COHERE_TEMPERATURE,
+  RESPONSE_FORMAT,
+  SYSTEM_PROMPT
+} from '../config/cohereConstants.js';
+import dotenv from 'dotenv';
+dotenv.config();
+
 const COHERE_API_KEY = process.env.COHERE_API_KEY;
-// Constants
+
+if (!COHERE_API_KEY) {
+  throw new Error('COHERE_API_KEY is not set in the environment variables');
+}
 
 async function callCohereAPI(userPrompt) {
-    console.log(" inside service....Calling Cohere API with prompt:");
-    console.log("Cohere API URL:", COHERE_API_URL);
-    console.log("Cohere API Key:", COHERE_API_KEY);
-    console.log("Cohere Model:", COHERE_MODEL);
-    console.log("Cohere Temperature:", COHERE_TEMPERATURE);
-    console.log("System Prompt:", SYSTEM_PROMPT);
-    console.log("Response Format:", RESPONSE_FORMAT);
-    console.log("User Prompt:", userPrompt);
   try {
     const payload = {
       messages: [
@@ -28,6 +32,10 @@ async function callCohereAPI(userPrompt) {
       model: COHERE_MODEL,
       response_format: RESPONSE_FORMAT
     };
+    console.log("Calling Cohere API with payload:", JSON.stringify(payload, null, 2));
+    console.log("Using API URL:", COHERE_API_URL);
+    console.log("Using API Key:", COHERE_API_KEY ? COHERE_API_KEY : 'Not Set');
+
 
     const response = await axios.post(COHERE_API_URL, payload, {
       headers: {
@@ -36,7 +44,6 @@ async function callCohereAPI(userPrompt) {
         'accept': 'application/json'
       }
     });
-    console.log("success response from Cohere API:", response.data);
     
     return response.data;
   } catch (error) {
@@ -45,6 +52,6 @@ async function callCohereAPI(userPrompt) {
   }
 }
 
-module.exports = {
+export default {
   callCohereAPI
 };

@@ -1,6 +1,6 @@
 // controllers/courseController.js
 
-import cohereService from '../services/cohereService.js';
+import { getOrGenerateCourse } from '../services/courseService.js';
 
 export async function generateCourse(req, res) {
     
@@ -13,11 +13,10 @@ export async function generateCourse(req, res) {
             return res.status(400).json({ error: 'Topic is required' });
         }
 
-        // Enrich the prompt (you can customize this further)
-        const enrichedPrompt = `Create a detailed course on the topic: ${topic}`;
+        const userId = req.user?.sub || 'anonymous';
 
-        // Call Cohere API
-        const courseContent = await cohereService.callCohereAPI(enrichedPrompt);
+        // Call Course Service
+        const courseContent = await getOrGenerateCourse(topic, userId);
 
         return res.status(200).json({ course: courseContent });
     } catch (error) {

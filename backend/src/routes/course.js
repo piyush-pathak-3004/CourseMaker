@@ -1,5 +1,5 @@
-const express = require('express');
-const { generateCourse } = require('../controllers/courseController');
+import express from 'express';
+import { generateCourse } from '../controllers/courseController.js';
 
 const router = express.Router();
 
@@ -14,4 +14,4 @@ router.post('/generate-course', async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;
