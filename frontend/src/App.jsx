@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
+import Lesson from './components/LessonPage';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const App = () => {
@@ -23,7 +24,7 @@ const App = () => {
             </>
           )}
         </header>
-        <Routes>
+        {/* <Routes>
           <Route
             path="/"
             element={
@@ -40,6 +41,38 @@ const App = () => {
           <Route
             path="/home"
             element={<Home />}
+          />
+        </Routes> */}
+
+
+        <Routes>
+          <Route path="/unauthorised" element={<Home />} />
+          <Route path="/unauthorised/lesson/:moduleIdx/:lessonIdx" element={<Lesson />} />
+          <Route
+            path="/"
+            element={
+              isAuthenticated ? (
+                <Home />
+              ) : (
+                <div>
+                  <h2>Please log in to access the course maker.</h2>
+                  <button onClick={() => loginWithRedirect()}>Log In</button>
+                </div>
+              )
+            }
+          />
+          <Route
+            path="/authorised/lesson/:moduleIdx/:lessonIdx"
+            element={
+              isAuthenticated ? (
+                <Lesson />
+              ) : (
+                <div>
+                  <h2>Please log in to access the course maker.</h2>
+                  <button onClick={() => loginWithRedirect()}>Log In</button>
+                </div>
+              )
+            }
           />
         </Routes>
       </div>

@@ -12,7 +12,7 @@ export async function generateCourse(req, res) {
         if (!topic) {
             return res.status(400).json({ error: 'Topic is required' });
         }
-
+        
         const userId = req.user?.sub || 'anonymous';
 
         // Call Course Service

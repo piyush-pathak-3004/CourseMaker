@@ -3,6 +3,10 @@ import Course from '../models/CourseModel.js';
 import Module from '../models/ModuleModel.js';
 import Lesson from '../models/LessonModel.js';
 import cohereService from '../services/cohereService.js';
+import {
+  COURSE_SYSTEM_PROMPT,
+  COURSE_RESPONSE_FORMAT,
+} from '../config/cohereConstants.js';
 
 export async function getOrGenerateCourse(topic, userId) {
   const normalizedTopic = topic.trim().toLowerCase();
@@ -17,7 +21,7 @@ export async function getOrGenerateCourse(topic, userId) {
 
   // 2. Call Cohere to generate course content
   const enrichedPrompt = `Create a detailed course on the topic: ${topic}`;
-  const aiResponse = await cohereService.callCohereAPI(enrichedPrompt);
+  const aiResponse = await cohereService.callCohereAPI(enrichedPrompt, COURSE_SYSTEM_PROMPT, COURSE_RESPONSE_FORMAT);
 
   // 3. Extract and parse actual JSON string from response
   const rawText = aiResponse.message.content[0].text;

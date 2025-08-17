@@ -50,6 +50,7 @@ app.use(
 console.log("before routes");
 app.use('/api/v1/courses', courseRoutes);
 app.use('/api/v2/courses', unauthenticatedRoutes);
+app.use('/api/v2/lessons', unauthenticatedRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

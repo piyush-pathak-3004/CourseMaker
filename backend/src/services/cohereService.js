@@ -3,8 +3,6 @@ import {
   COHERE_API_URL,
   COHERE_MODEL,
   COHERE_TEMPERATURE,
-  RESPONSE_FORMAT,
-  SYSTEM_PROMPT
 } from '../config/cohereConstants.js';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -15,13 +13,13 @@ if (!COHERE_API_KEY) {
   throw new Error('COHERE_API_KEY is not set in the environment variables');
 }
 
-async function callCohereAPI(userPrompt) {
+async function callCohereAPI(userPrompt, systemPrompt, responseFormat) {
   try {
     const payload = {
       messages: [
         {
           role: "system",
-          content: SYSTEM_PROMPT
+          content: systemPrompt
         },
         {
           role: "user",
@@ -30,7 +28,7 @@ async function callCohereAPI(userPrompt) {
       ],
       temperature: COHERE_TEMPERATURE,
       model: COHERE_MODEL,
-      response_format: RESPONSE_FORMAT
+      response_format: { type: "json_object" }
     };
     console.log("Calling Cohere API with payload:", JSON.stringify(payload, null, 2));
     console.log("Using API URL:", COHERE_API_URL);
