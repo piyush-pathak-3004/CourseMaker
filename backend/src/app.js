@@ -20,6 +20,7 @@ await connectDB();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -48,6 +49,10 @@ app.use(
 );
 
 console.log("before routes");
+app.use((req, res, next)=>{
+  console.log(req.baseUrl);
+  next();
+});
 app.use('/api/v1/courses', courseRoutes);
 app.use('/api/v2/courses', unauthenticatedRoutes);
 app.use('/api/v2/lessons', unauthenticatedRoutes);
