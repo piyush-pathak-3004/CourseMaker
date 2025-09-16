@@ -34,7 +34,7 @@ export const generateLesson = async (courseTitle, moduleTitle, lessonTitle, getA
   console.log("generateLesson got called");
   const token = await getAccessTokenSilently();
   const response = await axios.post(
-    '/api/v2/lessons/generate-lesson',
+    'https://backend-0llf.onrender.com/api/v2/lessons/generate-lesson',
     {
       courseTitle: courseTitle,
       moduleTitle: moduleTitle,
