@@ -50,7 +50,7 @@ app.use(
 );
 
 console.log("before routes");
-const cors = require('cors');
+// const cors = require('cors');
 
 app.use(cors({
   origin: "https://coursemaker.onrender.com",
