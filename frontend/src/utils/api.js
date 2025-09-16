@@ -11,7 +11,7 @@ export const generateCourse = async (topic, getAccessTokenSilently) => {
     console.log(topic, token);
   
     const response = await axios.post(
-      '/api/v2/courses/generate-course',
+      'https://backend-0llf.onrender.com/api/v2/courses/generate-course',
       { topic },
       {
         headers: {
