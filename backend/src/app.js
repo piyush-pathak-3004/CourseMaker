@@ -5,6 +5,7 @@ import unauthenticatedRoutes from './routes/unauthenticatedRoutes.js';
 import { expressjwt as jwt } from 'express-jwt';
 import jwksRsa from 'jwks-rsa';
 import dotenv from 'dotenv';
+import cors from "cors";
 dotenv.config();
 import connectDB from './db/CourseMakerDB.js';
 console.log(process.env.COHERE_API_KEY);
